@@ -5,8 +5,10 @@
   <title>Traxión AI - Mantenimiento Inteligente</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
+<!-- HEADER -->
 <header>
   <div class="logo">Traxión AI</div>
   <nav>
@@ -16,35 +18,45 @@
   </nav>
 </header>
 
+<!-- ANIMACION -->
+<div class="floating"></div>
+
+<!-- HERO -->
 <section class="hero">
   <h1>Optimiza el mantenimiento de tu flota</h1>
   <p>IA para reducir fallas y mejorar mantenimiento preventivo</p>
   <button onclick="openChat()">Evaluar Riesgo</button>
+
+  <!-- CLOCK -->
+  <div id="clock" class="clock"></div>
 </section>
 
+<!-- INFO -->
 <section class="info">
-  <h2>Problema Actual</h2>
-  <p>Muchas flotas enfrentan mantenimiento reactivo, generando costos altos y fallas inesperadas.</p>
+  <h2>Problema</h2>
+  <p>Mantenimiento reactivo genera altos costos y fallas inesperadas en la flota.</p>
 
-  <h2>Nuestra Solución</h2>
-  <p>Un agente de IA que analiza condiciones y recomienda acciones preventivas.</p>
+  <h2>Solución</h2>
+  <p>IA que evalúa riesgo mecánico y recomienda acciones preventivas en tiempo real.</p>
 </section>
 
-<!-- Chatbot -->
+<!-- CHATBOT -->
 <div id="chatbot" class="chatbot hidden">
+
   <div class="chat-header">
-    <span>Asistente Traxión AI</span>
+    Asistente Traxión AI
     <button onclick="closeChat()">X</button>
   </div>
 
   <div id="chat-messages" class="chat-messages"></div>
 
-  <div class="chat-input">
-    <input type="text" id="user-input" placeholder="Describe el problema...">
-    <button onclick="sendMessage()">Enviar</button>
-  </div>
+  <!-- OPCIONES -->
+  <div id="chat-options" class="chat-options"></div>
+
 </div>
 
+<!-- SCRIPT -->
 <script src="app.js"></script>
+
 </body>
 </html>
