@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Traxión AI - Mantenimiento Inteligente</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">Traxión AI</div>
+  <nav>
+    <a href="#">Inicio</a>
+    <a href="#">Solución</a>
+    <a href="#">Contacto</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Optimiza el mantenimiento de tu flota</h1>
+  <p>IA para reducir fallas y mejorar mantenimiento preventivo</p>
+  <button onclick="openChat()">Evaluar Riesgo</button>
+</section>
+
+<section class="info">
+  <h2>Problema Actual</h2>
+  <p>Muchas flotas enfrentan mantenimiento reactivo, generando costos altos y fallas inesperadas.</p>
+
+  <h2>Nuestra Solución</h2>
+  <p>Un agente de IA que analiza condiciones y recomienda acciones preventivas.</p>
+</section>
+
+<!-- Chatbot -->
+<div id="chatbot" class="chatbot hidden">
+  <div class="chat-header">
+    <span>Asistente Traxión AI</span>
+    <button onclick="closeChat()">X</button>
+  </div>
+
+  <div id="chat-messages" class="chat-messages"></div>
+
+  <div class="chat-input">
+    <input type="text" id="user-input" placeholder="Describe el problema...">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
