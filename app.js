@@ -1,83 +1,101 @@
+// ================= CLOCK =================
+function updateClock() {
+  const now = new Date();
+  const clock = document.getElementById("clock");
+
+  if (clock) {
+    clock.innerText = now.toLocaleString();
+  }
+}
+setInterval(updateClock, 1000);
+
+// ================= CHAT =================
 function openChat() {
   document.getElementById("chatbot").classList.remove("hidden");
-  addBotMessage("Hola 👋 Soy tu asistente de mantenimiento. Describe el estado del camión.");
+  startChat();
 }
 
-function closeChat() {
-  document.getElementById("chatbot").classList.add("hidden");
+function startChat() {
+  clearChat();
+
+  addBotMessage("Selecciona el problema detectado:");
+
+  showOptions([
+    "Falla en frenos",
+    "Ruido o vibración",
+    "Fuga de aceite",
+    "Mantenimiento atrasado"
+  ]);
 }
 
-function sendMessage() {
-  const input = document.getElementById("user-input");
-  const text = input.value.trim();
-
-  if (!text) return;
-
-  addUserMessage(text);
-  input.value = "";
-
-  setTimeout(() => {
-    const response = analyzeRisk(text);
-    addBotMessage(response);
-  }, 500);
-}
-
-function addUserMessage(text) {
-  const container = document.getElementById("chat-messages");
-  container.innerHTML += `<div class="message user">${text}</div>`;
-  container.scrollTop = container.scrollHeight;
+function clearChat() {
+  document.getElementById("chat-messages").innerHTML = "";
+  document.getElementById("chat-options").innerHTML = "";
 }
 
 function addBotMessage(text) {
   const container = document.getElementById("chat-messages");
-  container.innerHTML += `<div class="message bot">${text}</div>`;
-  container.scrollTop = container.scrollHeight;
+  const div = document.createElement("div");
+  div.className = "message bot";
+  div.innerText = text;
+  container.appendChild(div);
 }
 
-/* 🧠 Lógica IA simplificada */
-function analyzeRisk(input) {
-  input = input.toLowerCase();
+function addUserMessage(text) {
+  const container = document.getElementById("chat-messages");
+  const div = document.createElement("div");
+  div.className = "message user";
+  div.innerText = text;
+  container.appendChild(div);
+}
 
-  let risk = 0;
-  let recommendations = [];
+function showOptions(options) {
+  const container = document.getElementById("chat-options");
+  container.innerHTML = "";
 
-  if (input.includes("ruido") || input.includes("vibración")) {
-    risk += 2;
-    recommendations.push("Revisar sistema de suspensión y motor");
+  options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.innerText = opt;
+    btn.onclick = () => handleOption(opt);
+    container.appendChild(btn);
+  });
+}
+
+// ================= LOGICA IA REALISTA =================
+function handleOption(option) {
+  addUserMessage(option);
+
+  let response = "";
+  let nextOptions = [];
+
+  switch(option) {
+
+    case "Falla en frenos":
+      response = "🔴 Riesgo ALTO\nRevisar pastillas, discos y sistema hidráulico.\nUnidad NO debe operar.";
+      nextOptions = ["Ver plan preventivo", "Registrar incidente"];
+      break;
+
+    case "Ruido o vibración":
+      response = "🟠 Riesgo MEDIO\nPosible desgaste en suspensión o motor.\nProgramar inspección en 24h.";
+      nextOptions = ["Ver checklist", "Agendar mantenimiento"];
+      break;
+
+    case "Fuga de aceite":
+      response = "🟠 Riesgo MEDIO\nPuede causar daño mayor al motor.\nRevisar sellos y niveles.";
+      nextOptions = ["Solicitar revisión", "Ver historial"];
+      break;
+
+    case "Mantenimiento atrasado":
+      response = "🔴 Riesgo ALTO\nAlta probabilidad de falla.\nImplementar mantenimiento preventivo inmediato.";
+      nextOptions = ["Crear plan", "Ver KPI flota"];
+      break;
+
+    default:
+      response = "Acción registrada.";
   }
 
-  if (input.includes("freno") || input.includes("frenos")) {
-    risk += 3;
-    recommendations.push("Inspección urgente de sistema de frenos");
-  }
-
-  if (input.includes("aceite") || input.includes("fuga")) {
-    risk += 2;
-    recommendations.push("Verificar fugas y niveles de aceite");
-  }
-
-  if (input.includes("no mantenimiento") || input.includes("atrasado")) {
-    risk += 3;
-    recommendations.push("Implementar mantenimiento preventivo inmediato");
-  }
-
-  let level = "";
-
-  if (risk >= 5) {
-    level = "🔴 ALTO";
-  } else if (risk >= 3) {
-    level = "🟠 MEDIO";
-  } else {
-    level = "🟢 BAJO";
-  }
-
-  return `
-  Nivel de riesgo: ${level}
-
-  Recomendaciones:
-  - ${recommendations.join("\n- ") || "Monitoreo continuo"}
-
-  💡 Sugerencia IA:
-  Migrar a mantenimiento preventivo basado en datos.
-  `;
+  setTimeout(() => {
+    addBotMessage(response);
+    showOptions(nextOptions);
+  }, 500);
 }
