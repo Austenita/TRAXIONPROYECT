@@ -1,62 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Traxión AI - Mantenimiento Inteligente</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traxión AI | Gestión Inteligente de Flotas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="logo">Traxión AI</div>
-  <nav>
-    <a href="#">Inicio</a>
-    <a href="#">Solución</a>
-    <a href="#">Contacto</a>
-  </nav>
+<header class="navbar">
+     <div class="container">
+     <div class="logo">TRAXIÓN <span>AI</span></div>
+      <nav>
+        <a href="#solucion">Solución</a>
+        <a href="#dashboard">Simulador</a>
+        <a href="#contacto" class="btn-nav">Contacto</a>
+      </nav>
+    </div>
 </header>
 
-<!-- ANIMACION -->
-<div class="floating"></div>
-
-<!-- HERO -->
 <section class="hero">
-  <h1>Optimiza el mantenimiento de tu flota</h1>
-  <p>IA para reducir fallas y mejorar mantenimiento preventivo</p>
-  <button onclick="openChat()">Evaluar Riesgo</button>
-
-  <!-- CLOCK -->
-  <div id="clock" class="clock"></div>
+     <div class="hero-content">
+      <span class="badge">Innovación en Logística 4.0</span>
+      <h1>Optimiza el mantenimiento de tu flota con <strong>IA</strong></h1>
+      <p>Reducimos las fallas críticas y los costos operativos mediante análisis predictivo en tiempo real.</p>
+     <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollto('#dashboard')">Probar Simulador</button>
+      <button class="btn-secondary" onclick="openChat()">Hablar con Asistente</button>
+      </div>
+      </div>
+     <div class="hero-visual">
+     <div class="floating-blob"></div>
+      </div>
 </section>
 
-<!-- INFO -->
-<section class="info">
-  <h2>Problema</h2>
-  <p>Mantenimiento reactivo genera altos costos y fallas inesperadas en la flota.</p>
-
-  <h2>Solución</h2>
-  <p>IA que evalúa riesgo mecánico y recomienda acciones preventivas en tiempo real.</p>
+<section id="solucion" class="features">
+     <div class="container grid">
+     <div class="card problem">
+        <div class="icon">⚠️</div>
+            <h3>El Desafío</h3>
+            <p>El mantenimiento reactivo genera tiempos de inactividad costosos y fallas mecánicas imprevistas en la flota.</p>
+      </div>
+      <div class="card solution">
+      <div class="icon">🚀</div>
+     <h3>Nuestra Solución</h3>
+     <p>Implementamos modelos de IA que evalúan vibración, temperatura y lubricación para anticipar riesgos.</p>
+      </div>
+        </div>
 </section>
 
-<!-- CHATBOT -->
+<section id="dashboard" class="dashboard-preview">
+     <div class="container">
+       <h2>Simulador de Riesgo Mecánico</h2>
+        <div class="dashboard-grid">
+          <div class="input-panel">
+            <div class="input-group">
+              <label>Vibración</label>
+              <select id="vib">
+              <option value="Baja">Baja (Normal)</option>
+              <option value="Media">Media (Precaución)</option>
+              <option value="Alta">Alta (Crítica)</option>
+               </select>
+      </div>
+        <div class="input-group">
+          <label>Severidad (1-10)</label>
+          <input type="number" id="sev" placeholder="Ej: 8">
+      </div>
+        <button class="btn-analyze" onclick="ejecutarAnalisis()">Calcular RPN</button>
+          </div>
+                
+                <div class="result-panel">
+                    <div id="status-light" class="light"></div>
+                    <div id="result-text">Esperando datos...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 <div id="chatbot" class="chatbot hidden">
+    <div class="chat-header">
+        <span>TRAXIÓN AI ASSISTANT</span>
+        <button onclick="toggleChat()" style="background:none; border:none; color:inherit; cursor:pointer; font-size:1.2rem;">×</button>
+    </div>
+    <div id="chat-messages" class="chat-messages" style="height: 300px; padding: 1.5rem; overflow-y: auto; font-size: 0.85rem; display: flex; flex-direction: column; gap: 1rem;">
+        <div class="msg bot" style="background: rgba(255,255,255,0.05); padding: 0.8rem; border-radius: 2px; border-left: 2px solid var(--gold-muted);">
+            SISTEMA: Carolina, conexión establecida. ¿Qué anomalía detectas en la unidad?
+        </div>
+    </div>
+    <div class="chat-input-area" style="padding: 1rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex;">
+        <input type="text" id="user-input" placeholder="Escribe un comando..." style="background: transparent; border: none; color: white; flex: 1; outline: none; font-size: 0.8rem;">
+        <button onclick="sendMessage()" style="background: none; border: none; color: var(--gold-muted); cursor: pointer; font-weight: bold; font-size: 0.7rem; letter-spacing: 1px;">ENVIAR</button>
+    </div>
+    </div>
 
-  <div class="chat-header">
-    Asistente Traxión AI
-    <button onclick="closeChat()">X</button>
-  </div>
+    <footer>
+        <p>&copy; 2026 Traxión AI. Todos los derechos reservados.</p>
+        <div id="clock" class="clock"></div>
+    </footer>
 
-  <div id="chat-messages" class="chat-messages"></div>
-
-  <!-- OPCIONES -->
-  <div id="chat-options" class="chat-options"></div>
-
-</div>
-
-<!-- SCRIPT -->
-<script src="app.js"></script>
-
+    <script src="app.js"></script>
 </body>
 </html>
